@@ -22,9 +22,22 @@ def analyze_file():
     json_file['last_analysis_stats'] = file.last_analysis_stats
     json_file['md5'] = file.md5
 
+    new_dict = {"name": json_file["meaningful_name"],
+            "md5": json_file["md5"],
+            "sections": [],
+            "imports": json_file["pe_info"]["import_list"],
+            "exports": json_file["pe_info"]["exports"],
+            "votes": json_file["last_analysis_stats"]}
+
+    for i in json_file["pe_info"]["sections"]:
+        new_dict["sections"].append({"name": i["name"],
+                                    "entropy": i["entropy"],
+                                    "raw_size": i["raw_size"],
+                                    "virtual_size": i["virtual_size"]})
+
     client.close()
     # with open("myfile.json", "w") as f:
     #     # Writing data to a file
     #     f.write(jsonify(json_file))
-    return jsonify(json_file)
+    return jsonify(new_dict)
     # return Flask.jsonify(json_file)
