@@ -100,7 +100,7 @@ class InfoRoute extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ResultRoute()),
+                MaterialPageRoute(builder: (context) => ResultRoute(result: "malware")),
             );
               },
               child: const Text('Not Malware'),
@@ -112,7 +112,7 @@ class InfoRoute extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ResultRoute()),
+                MaterialPageRoute(builder: (context) => ResultRoute(result: "benign")),
             );
               },
               child: const Text('Malware'),

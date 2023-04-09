@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ResultRoute extends StatelessWidget {
-  const ResultRoute({super.key});
+  String result;
+
+  ResultRoute({super.key, required String this.result});
 
   @override
   Widget build(BuildContext context) {
