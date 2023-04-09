@@ -21,14 +21,23 @@ def analyze_file():
     json_file['meaningful_name'] = file.meaningful_name
     json_file['last_analysis_stats'] = file.last_analysis_stats
     json_file['md5'] = file.md5
+    json_file['popular_threat_classification'] = file.get('popular_threat_classification')
 
-    new_dict = {"name": json_file["meaningful_name"],
+    if (json_file['popular_threat_classification']):
+        new_dict = {"name": json_file["meaningful_name"],
             "md5": json_file["md5"],
             "sections": [],
             "imports": json_file["pe_info"]["import_list"],
-            "exports": json_file["pe_info"]["exports"],
-            "votes": json_file["last_analysis_stats"]}
-
+            "votes": json_file["last_analysis_stats"],  
+            "suggested_threat_label": json_file["popular_threat_classification"]['suggested_threat_label']}
+    else:
+        new_dict = {"name": json_file["meaningful_name"],
+            "md5": json_file["md5"],
+            "sections": [],
+            "imports": json_file["pe_info"]["import_list"],
+            "votes": json_file["last_analysis_stats"],  
+            "suggested_threat_label": 'nope'}
+        
     for i in json_file["pe_info"]["sections"]:
         new_dict["sections"].append({"name": i["name"],
                                     "entropy": i["entropy"],
